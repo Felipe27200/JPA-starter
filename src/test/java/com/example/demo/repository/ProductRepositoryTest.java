@@ -56,4 +56,32 @@ class ProductRepositoryTest {
 		System.out.println(savedProduct.getId());
 		System.out.println(savedProduct);
 	}
+	
+	@Test
+	void UpdateUsingSaveMethod()
+	{
+		/* BUSCAR EL REGISTRO EN LA BD */
+		Long id = 1L;
+		
+		/**
+		 * Se usa el método de findById para buscar el registro
+		 * según el "id", este lo retorna como un objeto de la
+		 * entidad, el método get se encarga de validar que exista
+		 * de lo contrario, lanzará una excepción.
+		 */
+		Product product = productRepository.findById(id).get();
+		
+		product.setName("Update product 1");
+		product.setDescription("Update product 1 desc");
+		
+		// ACTUALIZAR EL REGISTRO EN LA BD
+		
+		/**
+		 * Se actualiza el registro porque la entidad posee
+		 * una primary key, que ya está en la BD, por ende, 
+		 * JPA sabe que debe actualizarlo, sin primary key,
+		 * lo insertaría como nuevo.
+		 */
+		productRepository.save(product);
+	}
 }
