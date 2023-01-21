@@ -11,6 +11,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 
 // Está clase representa una tabla en la BD
 
@@ -86,7 +89,11 @@ public class Product {
 	private BigDecimal price;
 	private boolean active;
 	private String imgUrl;
+	
+	/* Crear Timestamps para crear y actualizar */
+	@CreationTimestamp
 	private LocalDateTime dateCreated;
+	@UpdateTimestamp
 	private LocalDateTime lastUpdated;
 
 	//  GETTERS AND SETTER FOR ALL VI
