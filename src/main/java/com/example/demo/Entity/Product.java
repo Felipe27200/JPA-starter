@@ -151,4 +151,15 @@ public class Product {
 	public void setLastUpdated(LocalDateTime lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "Product [getId()=" + getId() + ", getSku()=" + getSku() + ", getName()=" + getName()
+				+ ", getDescription()=" + getDescription() + ", getPrice()=" + getPrice() + ", isActive()=" + isActive()
+				+ ", getImgUrl()=" + getImgUrl() + ", getDateCreated()=" + getDateCreated() + ", getLastUpdated()="
+				+ getLastUpdated() + "]";
+	}
+	
+	
 }
