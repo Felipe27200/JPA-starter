@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,105 @@ class ProductRepositoryTest {
 		 * lo insertaría como nuevo.
 		 */
 		productRepository.save(product);
+	}
+	
+	@Test
+	void saveMultipleRecords()
+	{
+		Product product1 = new Product();
+		
+		product1.setName("Product 2");
+		product1.setDescription("Product 2 Description");
+		product1.setSku("200ABC");
+		product1.setPrice(new BigDecimal(100));
+		product1.setActive(true);
+		product1.setImgUrl("product1.png");
+
+		Product product2 = new Product();
+		
+		product2.setName("Product 3");
+		product2.setDescription("Product 3 Description");
+		product2.setSku("300ABC");
+		product2.setPrice(new BigDecimal(100));
+		product2.setActive(true);
+		product2.setImgUrl("product1.png");
+
+		Product product3 = new Product();
+		
+		product3.setName("Product 4");
+		product3.setDescription("Product 4 Description");
+		product3.setSku("400ABC");
+		product3.setPrice(new BigDecimal(100));
+		product3.setActive(true);
+		product3.setImgUrl("product1.png");
+		
+		/*
+		 * Para almacenar varias entidades a la vez,
+		 * se puede usar el método saveAll, que recibe
+		 * listas o arrays que contengan las entidades.
+		 * */
+		productRepository.saveAll(List.of(product1, product2, product3));
+	}
+	
+	// OBTENER TODOS LOS REGISTROS EN LA TABLA
+	@Test
+	void findAllRecords ()
+	{
+		/*
+		 * Se usa dicho método y se almacenan todos en
+		 * una lista que almacenará objetos tipo Product
+		 * */
+		List<Product> products = productRepository.findAll();
+		
+		/*
+		 * Con el método forEach de la entidad y una 
+		 * función lambda se logra iterar a través de toda
+		 * la lista.
+		 * */
+		products.forEach((product) -> {
+			System.out.println(product);
+		});
+	}
+	
+	// DELETE A RECORD FOR ITS ID
+	@Test
+	void deleteRecordID ()
+	{
+		Long id = 1L;
+		productRepository.deleteById(id);
+	}
+	
+	// DELETE A RECORD by ENTITY
+	@Test
+	void deleteRecordEntity ()
+	{
+		// First look up the entity
+		Long id = 2L;
+		
+		Product product = productRepository.findById(id).get();
+		
+		// Doesn't return any value
+		productRepository.delete(product);
+	}
+
+
+	// DELETE ALL RECORDS 
+	@Test
+	void deleteWithoutEntity ()
+	{
+		productRepository.deleteAll();
+	}
+	// DELETE ALL RECORDS by way ENTITY LIST
+	void deleteAllRecordsEntity ()
+	{
+		Product product1 = productRepository.findById(5L).get();
+		Product product2 = productRepository.findById(6L).get();
+		
+		/**
+		 * Este método elimina todos las entidades que estén
+		 * dentro de una lista iterable que le sea pasada como
+		 * argumento.
+		 * */
+		productRepository.deleteAll(List.of(product1, product2));
 	}
 }
