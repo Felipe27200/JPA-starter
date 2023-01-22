@@ -172,11 +172,13 @@ class ProductRepositoryTest {
 	{
 		productRepository.deleteAll();
 	}
+
 	// DELETE ALL RECORDS by way ENTITY LIST
+	@Test
 	void deleteAllRecordsEntity ()
 	{
-		Product product1 = productRepository.findById(5L).get();
-		Product product2 = productRepository.findById(6L).get();
+		Product product1 = productRepository.findById(2L).get();
+		Product product2 = productRepository.findById(4L).get();
 		
 		/**
 		 * Este método elimina todos las entidades que estén
@@ -185,4 +187,15 @@ class ProductRepositoryTest {
 		 * */
 		productRepository.deleteAll(List.of(product1, product2));
 	}
+	
+	// Count all records into the DB
+	@Test
+	void countRecords()
+	{
+		Long count = productRepository.count();
+		
+		System.out.println("Number of Records: " + count);
+	}
+	
+	
 }
